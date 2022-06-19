@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public CharacterController player;
-    float rotation;
+    public Rigidbody player;
+    [SerializeField] bool touchingGround;
+    [SerializeField] CollisionManager collisionManager;
+    [SerializeField] float rotation;
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private float jumpForce;
 
     void Update()
     {
@@ -19,13 +22,18 @@ public class Player : MonoBehaviour
         {
             transform.position -= transform.forward * Time.deltaTime * speed;
         }
-
-        rotation += Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed;
-        player.transform.rotation = Quaternion.Euler(0, rotation, 0);
-
-        /*float z = Input.GetAxis("Vertical");
-        direction = transform.forward * z;
-        player.Move(direction * Time.deltaTime * speed);
-        direction = Vector3.zero;*/
+        if (Input.GetKeyDown(KeyCode.Space) && touchingGround)
+        {
+            player.AddForce(Vector3.up * jumpForce);
+        }
+        transform.Rotate(Vector3.up * Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        collisionManager.Player(ref touchingGround, collision, true, player);
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        collisionManager.Player(ref touchingGround, collision, false, player);
     }
 }

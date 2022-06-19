@@ -5,18 +5,24 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public List<Image> items = new List<Image>();
-    public List<Text> amounts = new List<Text>();
+    public Item[] items = new Item[6];
     [SerializeField] GameObject backpack;
 
-    void Start()
+    public void ReloadInventory()
     {
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < items.Length; i++)
         {
-            Image instance = Instantiate(items[i]);
-            instance.transform.position = new Vector2(i * 80 + 60, -60);
-            instance.transform.SetParent(backpack.transform, false);
-            amounts[i].text = instance.GetComponent<Item>().amount.ToString();
+            if(items[i] != null)
+            {
+                Spawn(items[i], i);
+            }
         }
+    }
+    public Item Spawn(Item item, int i)
+    {
+        Item instance = Instantiate(item);
+        instance.transform.position = new Vector2(i * 85 + 70, -75);
+        instance.transform.SetParent(backpack.transform, false);
+        return instance;
     }
 }
