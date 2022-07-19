@@ -30,10 +30,10 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        collisionManager.Player(ref touchingGround, collision, true, player);
+        collisionManager.Player(ref touchingGround, collision, player);
     }
     private void OnCollisionExit(Collision collision)
     {
-        collisionManager.Player(ref touchingGround, collision, false, player);
+        collisionManager.Player(ref touchingGround, collision, player);
     }
 }

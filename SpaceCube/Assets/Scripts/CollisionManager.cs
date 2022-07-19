@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CollisionManager : MonoBehaviour
 {
-    public void Player(ref bool touching, Collision collision, bool setting, Rigidbody player)
+    public void Player(ref bool touching, Collision collision, Rigidbody player)
     {
         if (collision.collider.name == "Cube")
         {
-            touching = setting;
+            touching = true;
         }
         if(collision.collider.name == "Border")
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Build : MonoBehaviour
 {
     public GameObject building;
+    public GameObject world;
     public Inventory inventory;
     public BoxCollider cube;
     Camera cam;
@@ -18,10 +19,10 @@ public class Build : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Spawn();
+            Click();
         }
     }
-    void Spawn()
+    void Click()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -29,37 +30,25 @@ public class Build : MonoBehaviour
         {
             if (hit.collider == cube)
             {
-                if(building != null)
-                {
-                    Instantiate(building, new Vector3(hit.point.x, hit.point.y + 0.05f, hit.point.z), Quaternion.identity);
-                    building = null;
-                }
+                Spawn(hit);
             }
             else if(hit.collider.name.Contains("Farm"))
             {
                 Farm farm = hit.collider.gameObject.GetComponent<Farm>();
-                Collect(farm);
+                if(farm.stock > 0)
+                {
+                    inventory.Collect(farm);
+                }
             }
         }
     }
-    void Collect(Farm farm)
+    void Spawn(RaycastHit hit)
     {
-        for (int i = 0; i < inventory.items.Length; i++)
+        if (building != null)
         {
-            if (inventory.items[i] == null)
-            {
-                Item item = inventory.Spawn(farm.product, i);
-                inventory.items[i] = item;
-                farm.stock = 0;
-                Debug.Log(inventory.items[i].amount + " new");
-                break;
-            }else if (inventory.items[i].product == farm.product.product)
-            {
-                inventory.items[i].amount += farm.stock;
-                farm.stock = 0;
-                Debug.Log(inventory.items[i].amount);
-                break;
-            }
+            Instantiate(building, new Vector3(hit.point.x, hit.point.y + 0.05f, hit.point.z), Quaternion.identity).transform.parent = world.transform;
+            building = null;
         }
     }
+    
 }
