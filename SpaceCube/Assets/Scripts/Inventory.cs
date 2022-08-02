@@ -6,8 +6,17 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public Item[] items = new Item[6];
+    [SerializeField] Item starterCarrot;
+    [SerializeField] Item starterWood;
     [SerializeField] GameObject backpack;
 
+    void Start()
+    {
+        items[0] = Spawn(starterCarrot, 0);
+        items[1] = Spawn(starterWood, 1);
+        items[0].amount = 1;
+        items[1].amount = 5;
+    }
 
     public void ReloadInventory()
     {
@@ -15,7 +24,11 @@ public class Inventory : MonoBehaviour
         {
             if(items[i] != null)
             {
-                Spawn(items[i], i);
+                if (items[i].amount <= 0)
+                {
+                    Destroy(items[i].gameObject);
+                    items[i] = null;
+                }
             }
         }
     }

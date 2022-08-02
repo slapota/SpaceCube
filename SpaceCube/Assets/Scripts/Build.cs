@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Build : MonoBehaviour
 {
+    [SerializeField] GameObject shopMenu;
     public GameObject building;
     public GameObject world;
     public Inventory inventory;
@@ -14,6 +15,7 @@ public class Build : MonoBehaviour
     {
         cam = Camera.main;
         building = null;
+        shopMenu.SetActive(false);
     }
     void Update()
     {
@@ -39,6 +41,9 @@ public class Build : MonoBehaviour
                 {
                     inventory.Collect(farm);
                 }
+            }else if(hit.collider.name == "ShopBrick")
+            {
+                shopMenu.SetActive(!shopMenu.activeInHierarchy);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private Text moneyText;
+    public int money;
 
     void Update()
     {
@@ -27,6 +30,8 @@ public class Player : MonoBehaviour
             player.AddForce(Vector3.up * jumpForce);
         }
         transform.Rotate(Vector3.up * Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed);
+
+        moneyText.text = money.ToString();
     }
     private void OnCollisionEnter(Collision collision)
     {

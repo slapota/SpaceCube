@@ -62,6 +62,9 @@ MonoBehaviour:
   product: Wood
   amount: 0
   text: {fileID: 8405893041660067204}
+  image: {fileID: 21300000, guid: 6123eb8cf457419418780df2a53042cf, type: 3}
+  buyPrice: 10
+  sellPrice: 5
 --- !u!114 &2180722362172424938
 MonoBehaviour:
   m_ObjectHideFlags: 0

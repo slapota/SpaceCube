@@ -8,6 +8,9 @@ public class Item : MonoBehaviour
     public string product;
     public int amount;
     public Text text;
+    public Sprite image;
+    public int buyPrice;
+    public int sellPrice;
 
     void Update()
     {

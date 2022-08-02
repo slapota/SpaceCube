@@ -91,6 +91,9 @@ MonoBehaviour:
   product: Carrot
   amount: 0
   text: {fileID: 6093223665525139748}
+  image: {fileID: 21300000, guid: 8ee37bd2c6783b547a276a17760d044f, type: 3}
+  buyPrice: 2
+  sellPrice: 1
 --- !u!1 &8199942890374788848
 GameObject:
   m_ObjectHideFlags: 0

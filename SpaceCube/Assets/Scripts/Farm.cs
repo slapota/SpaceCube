@@ -8,6 +8,8 @@ public class Farm : MonoBehaviour
     public int stock;
     public int level;
     public float speed;
+    public Item item_needed;
+    public int wood_needed;
 
     void Start()
     {
