@@ -7,6 +7,7 @@ public class ButtonManager : MonoBehaviour
 {
     [SerializeField] Player player;
     public GameObject buildMenu, gameView, shop, shopMenu;
+    public Slider slider;
     Item itemShop;
     public Text shopText, sellPrice, buyPrice;
     public Build build;
@@ -70,6 +71,8 @@ public class ButtonManager : MonoBehaviour
         shop.SetActive(false);
         shopMenu.SetActive(true);
         itemImage.sprite = item.image;
+        sellPrice.text = (slider.value * item.sellPrice).ToString();
+        buyPrice.text = (slider.value * item.buyPrice).ToString();
     }
     public void CloseShop()
     {
@@ -84,7 +87,11 @@ public class ButtonManager : MonoBehaviour
     }
     public void Buy()
     {
-
+        if(player.money >= int.Parse(buyPrice.text))
+        {
+            player.money -= int.Parse(buyPrice.text);
+            inventory.Add(itemShop, int.Parse(shopText.text));
+        }
     }
     public void Sell()
     {
@@ -92,7 +99,7 @@ public class ButtonManager : MonoBehaviour
         if(CheckForItemsToSell(ref index))
         {
             inventory.items[index].amount -= int.Parse(shopText.text);
-            player.money += int.Parse(shopText.text);
+            player.money += int.Parse(sellPrice.text);
             inventory.ReloadInventory();
         }
     }
@@ -114,5 +121,22 @@ public class ButtonManager : MonoBehaviour
             }
         }
         return false;
+    }
+    public void SellAll()
+    {
+        for (int i = 0; i < inventory.items.Length; i++)
+        {
+            if(inventory.items[i] == null)
+            {
+                continue;
+            }
+            if (inventory.items[i].product == itemShop.product)
+            {
+                player.money += inventory.items[i].amount * itemShop.sellPrice;
+                inventory.items[i].amount = 0;
+                inventory.ReloadInventory();
+                break;
+            }
+        }
     }
 }

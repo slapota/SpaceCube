@@ -58,7 +58,8 @@ MonoBehaviour:
   stock: 0
   level: 1
   speed: 1
-  item_needed: {fileID: 0}
+  item_needed: {fileID: 4321730285877721423, guid: 860626c124be53c4ba9eceb43d34360a,
+    type: 3}
   wood_needed: 10
 --- !u!23 &3931420586011590517
 MeshRenderer:

@@ -41,13 +41,18 @@ public class Inventory : MonoBehaviour
     }
     public void Collect(Farm farm)
     {
+        Add(farm.product, farm.stock);
+        farm.stock = 0;
+    }
+    public void Add(Item item, int amount)
+    {
         bool contains = false;
         int index = 0;
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i] != null)
             {
-                if (items[i].product == farm.product.product)
+                if (items[i].product == item.product)
                 {
                     contains = true;
                     index = i;
@@ -57,28 +62,26 @@ public class Inventory : MonoBehaviour
         switch (contains)
         {
             case true:
-                ContainsItem(index, farm);
+                ContainsItem(index, item, amount);
                 break;
             case false:
-                NewItem(farm);
+                NewItem(item, amount);
                 break;
         }
     }
-    void ContainsItem(int index, Farm farm)
+    void ContainsItem(int index, Item item, int amount)
     {
-        items[index].amount += farm.stock;
-        farm.stock = 0;
+        items[index].amount += amount;
     }
-    void NewItem(Farm farm)
+    void NewItem(Item item, int amount)
     {
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i] == null)
             {
-                Item instance = Spawn(farm.product, i);
-                instance.amount = farm.stock;
+                Item instance = Spawn(item, i);
+                instance.amount = amount;
                 items[i] = instance;
-                farm.stock = 0;
                 break;
             }
         }

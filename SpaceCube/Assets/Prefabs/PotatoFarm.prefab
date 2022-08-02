@@ -99,7 +99,7 @@ MonoBehaviour:
   speed: 1
   item_needed: {fileID: 6790553744906362193, guid: 6a3dc267c626b7748a0b3ff800fbad72,
     type: 3}
-  wood_needed: 1
+  wood_needed: 5
 --- !u!65 &7256135483250285368
 BoxCollider:
   m_ObjectHideFlags: 0
