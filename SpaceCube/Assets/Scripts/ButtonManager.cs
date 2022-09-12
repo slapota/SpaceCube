@@ -43,7 +43,7 @@ public class ButtonManager : MonoBehaviour
             {
                 continue;
             }
-            if (inventory.items[i].product == farm.product.product)
+            if (inventory.items[i].product == farm.item_needed.product)
             {
                 enoughItems = true;
                 itemIndex = i;

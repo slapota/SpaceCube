@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public Item[] items = new Item[6];
-    [SerializeField] Item starterCarrot;
-    [SerializeField] Item starterWood;
+    [SerializeField] Item starterCarrot, starterWood, starterSapling, starterPotato;
     [SerializeField] GameObject backpack;
 
     void Start()

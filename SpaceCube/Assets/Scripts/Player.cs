@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private Text moneyText;
+    [SerializeField] private Animator animator;
     public int money;
 
     void Update()
@@ -30,6 +31,9 @@ public class Player : MonoBehaviour
             player.AddForce(Vector3.up * jumpForce);
         }
         transform.Rotate(Vector3.up * Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed);
+
+        animator.SetBool("Walk", Input.GetAxisRaw("Vertical") != 0);
+        animator.SetBool("Jump", Input.GetKeyDown(KeyCode.Space));
 
         moneyText.text = money.ToString();
     }
